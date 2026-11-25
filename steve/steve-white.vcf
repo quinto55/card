@@ -1,0 +1,9 @@
+BEGIN:VCARD
+VERSION:3.0
+N:White;Steve;;;
+FN:Steve White
+ORG:EMC Tickets
+TEL;TYPE=CELL:+18133899530
+EMAIL;TYPE=WORK:steve@emctickets.com
+URL:https://emctickets.com
+END:VCARD

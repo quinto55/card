@@ -1,13 +1,19 @@
 # Tap-to-share business card
 
-A dot-style contact card for Anthony Quintana (EMC Tickets). An NFC card holds only a link to this page; the details live here, so they can change without touching the cards. iPhones only open links from a card, which is why the details are not stored on the card itself.
+Dot-style contact cards for EMC Tickets people: Anthony Quintana at `/card/`, Steve White at `/card/steve/`. An NFC card holds only a link to this page; the details live here, so they can change without touching the cards. iPhones only open links from a card, which is why the details are not stored on the card itself.
 
-- `index.html`: the whole page. Look (cream ticket on EMC red, Bricolage Grotesque and Figtree, pressed-pill button) comes from the EMC site.
-- `anthony-quintana.vcf`: what **Save contact** opens. Keep it in step with the page: `node check.mjs`.
+- `index.html` + `anthony-quintana.vcf`: Anthony's page and the contact file behind **Save contact**.
+- `steve/index.html` + `steve/steve-white.vcf`: Steve's.
+- `card.css`, `card.js`, `fonts/`, `emc-logo.png`: shared by every page (the look comes from the EMC site; `card.js` is the `?setup` card writer).
+- `node check.mjs` checks each page and its contact file carry the same details.
+
+## Adding a person
+
+Copy `steve/` to a new folder, change the name, buttons and contact file, add the person to `PEOPLE` in `check.mjs`, run it, publish. Their cards are written from `/card/<folder>/?setup`.
 
 ## Changing a detail
 
-Edit it in both `index.html` and `anthony-quintana.vcf`, run `node check.mjs`, publish. The cards need no change.
+Edit it in both the person's page and their contact file, run `node check.mjs`, publish. The cards need no change.
 
 ## Writing a card
 
