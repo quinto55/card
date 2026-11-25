@@ -16,7 +16,7 @@
 @font-face { font-family: Figtree; font-weight: 300 900; font-display: swap; src: url(fonts/figtree-var.woff2) format('woff2'); }
 :root {
   --ink: #1b1f2a; --mut: #5d6370; --line: #ecdfca; --perf: #d8c4a0; --cream: #fff8ec;
-  --red: #cf1a22; --red-shadow: #9d1218;
+  --red: #cf1a22; --red-shadow: #9d1218; --ghost-shadow: #e3d3b8;
   --notch: 13px;
   --pad: clamp(20px, 6.5vw, 26px);
   --head: 'Bricolage Grotesque', system-ui, sans-serif;
@@ -47,7 +47,7 @@ a { color: inherit; text-decoration: none; }
 }
 .ways {
   position: relative; margin-top: -1px; /* no hairline of red at the seam */
-  padding: 10px var(--pad) 14px; border-radius: 0 0 24px 24px;
+  padding: 24px var(--pad) 28px; border-radius: 0 0 24px 24px;
   -webkit-mask: radial-gradient(circle var(--notch) at 0 0, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle var(--notch) at 100% 0, #0000 98%, #000) right / 51% 100% no-repeat;
   mask: radial-gradient(circle var(--notch) at 0 0, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle var(--notch) at 100% 0, #0000 98%, #000) right / 51% 100% no-repeat;
 }
@@ -71,14 +71,24 @@ h1 { font: 700 clamp(44px, 13.5vw, 56px)/1 var(--head); letter-spacing: -.03em; 
 .btn:disabled { opacity: .55; cursor: default; }
 .btn:focus-visible { border-radius: 999px; }
 
+/* Each way to reach him is its own raised button with an arrow, so nobody mistakes it for a plain list. */
+.ways p { color: var(--mut); font-size: 16px; margin-bottom: 14px; }
 .ways a {
-  display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
-  min-height: 58px; padding: 17px 0; border-top: 1px solid var(--line);
+  display: grid; grid-template-columns: 1fr auto; column-gap: 14px; align-items: center;
+  padding: 12px 18px 13px; background: #fff; border: 1px solid var(--line); border-radius: 16px;
+  box-shadow: 0 4px 0 var(--ghost-shadow);
+  transition: transform .12s ease, box-shadow .12s ease;
 }
-.ways a:first-child { border-top: 0; }
-.ways b { font-weight: 700; white-space: nowrap; }
-.ways span { color: var(--mut); min-width: 0; overflow-wrap: anywhere; text-align: right; font-size: clamp(15px, 4.6vw, 17px); } /* the email stays on one line down to 320px */
-.ways a:active b { color: var(--red); }
+.ways a + a { margin-top: 14px; }
+.ways a:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ghost-shadow); }
+.ways a:focus-visible { border-radius: 16px; }
+.ways b { grid-column: 1; font-weight: 700; line-height: 1.3; }
+.ways span { grid-column: 1; min-width: 0; color: var(--mut); overflow-wrap: anywhere; line-height: 1.35; font-size: clamp(15px, 4.6vw, 16px); } /* the email stays on one line down to 320px */
+.ways a::after { /* the arrow */
+  content: ""; grid-column: 2; grid-row: 1 / span 2;
+  width: 11px; height: 11px; margin-right: 3px;
+  border: solid var(--red); border-width: 3px 3px 0 0; transform: rotate(45deg);
+}
 
 /* Only shown with ?setup on the address: writes this page's link onto a blank card. */
 .setup { width: 100%; max-width: 400px; padding: 22px var(--pad) 26px; background: var(--cream); border-radius: 24px; }
@@ -88,7 +98,7 @@ h1 { font: 700 clamp(44px, 13.5vw, 56px)/1 var(--head); letter-spacing: -.03em; 
 #dest { overflow-wrap: anywhere; font-weight: 700; }
 #status { font-weight: 700; min-height: 1.5em; margin-top: 18px; }
 
-@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .btn, .ways a { transition: none; } }
 </style>
 </head>
 <body>
@@ -108,6 +118,7 @@ h1 { font: 700 clamp(44px, 13.5vw, 56px)/1 var(--head); letter-spacing: -.03em; 
     <a class="btn" href="anthony-quintana.vcf">Save contact</a>
   </header>
   <nav class="ways" aria-label="Ways to reach Anthony">
+    <p>Tap a button to get in touch.</p>
     <a href="tel:+18135732760"><b>Call</b><span>(813) 573-2760</span></a>
     <a href="mailto:anthony@emctickets.com"><b>Email</b><span>anthony@emctickets.com</span></a>
     <a href="https://calendly.com/anthony-emctickets/15min"><b>Book a time</b><span>15 minutes</span></a>
