@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#cf1a22">
+<title>Anthony Quintana, EMC Tickets</title>
+<meta name="description" content="Save Anthony Quintana's contact details, call, email or book a time.">
+<link rel="icon" href="emc-logo.png">
+<link rel="preload" href="fonts/bricolage-grotesque-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/figtree-var.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* Colors, type and the pressed-pill button come from the EMC site (EMC-website-redesign, src/styles). */
+@font-face { font-family: 'Bricolage Grotesque'; font-weight: 200 800; font-display: swap; src: url(fonts/bricolage-grotesque-var.woff2) format('woff2'); }
+@font-face { font-family: Figtree; font-weight: 300 900; font-display: swap; src: url(fonts/figtree-var.woff2) format('woff2'); }
+:root {
+  --ink: #1b1f2a; --mut: #5d6370; --line: #ecdfca; --perf: #d8c4a0; --cream: #fff8ec;
+  --red: #cf1a22; --red-shadow: #9d1218;
+  --notch: 13px;
+  --pad: clamp(20px, 6.5vw, 26px);
+  --head: 'Bricolage Grotesque', system-ui, sans-serif;
+  --text: Figtree, system-ui, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  min-height: 100svh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px;
+  padding: 24px 16px 44px;
+  background: var(--red); color: var(--ink);
+  font: 400 17px/1.5 var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: 6px; }
+
+/* The card is an admission ticket: who he is above the tear line, how to reach him below it. */
+.ticket { width: 100%; max-width: 400px; filter: drop-shadow(0 8px 0 var(--red-shadow)); }
+.who, .ways { background: var(--cream); }
+.who {
+  padding: 28px var(--pad) 30px; border-radius: 24px 24px 0 0;
+  -webkit-mask: radial-gradient(circle var(--notch) at 0 100%, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle var(--notch) at 100% 100%, #0000 98%, #000) right / 51% 100% no-repeat;
+  mask: radial-gradient(circle var(--notch) at 0 100%, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle var(--notch) at 100% 100%, #0000 98%, #000) right / 51% 100% no-repeat;
+}
+.ways {
+  position: relative; margin-top: -1px; /* no hairline of red at the seam */
+  padding: 10px var(--pad) 14px; border-radius: 0 0 24px 24px;
+  -webkit-mask: radial-gradient(circle var(--notch) at 0 0, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle var(--notch) at 100% 0, #0000 98%, #000) right / 51% 100% no-repeat;
+  mask: radial-gradient(circle var(--notch) at 0 0, #0000 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle var(--notch) at 100% 0, #0000 98%, #000) right / 51% 100% no-repeat;
+}
+.ways::before {
+  content: ""; position: absolute; top: 0;
+  left: calc(var(--notch) + 9px); right: calc(var(--notch) + 9px);
+  border-top: 2px dashed var(--perf);
+}
+
+.who img { width: 92px; height: auto; display: block; }
+h1 { font: 700 clamp(44px, 13.5vw, 56px)/1 var(--head); letter-spacing: -.03em; margin-top: 22px; }
+
+.btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; min-height: 56px; margin-top: 26px; padding: 14px 24px;
+  background: var(--red); color: #fff; font: 700 18px/1.2 var(--text);
+  border: 0; border-radius: 999px; box-shadow: 0 5px 0 var(--red-shadow); cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--red-shadow); }
+.btn:disabled { opacity: .55; cursor: default; }
+.btn:focus-visible { border-radius: 999px; }
+
+.ways a {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+  min-height: 58px; padding: 17px 0; border-top: 1px solid var(--line);
+}
+.ways a:first-child { border-top: 0; }
+.ways b { font-weight: 700; white-space: nowrap; }
+.ways span { color: var(--mut); min-width: 0; overflow-wrap: anywhere; text-align: right; font-size: clamp(15px, 4.6vw, 17px); } /* the email stays on one line down to 320px */
+.ways a:active b { color: var(--red); }
+
+/* Only shown with ?setup on the address: writes this page's link onto a blank card. */
+.setup { width: 100%; max-width: 400px; padding: 22px var(--pad) 26px; background: var(--cream); border-radius: 24px; }
+.setup h2 { font: 700 26px/1.1 var(--head); letter-spacing: -.02em; }
+.setup p { margin-top: 10px; }
+.setup .btn { margin-top: 18px; }
+#dest { overflow-wrap: anywhere; font-weight: 700; }
+#status { font-weight: 700; min-height: 1.5em; margin-top: 18px; }
+
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+</style>
+</head>
+<body>
+
+<section class="setup" id="setup" hidden>
+  <h2>Write a card</h2>
+  <p>Press the button, then hold a card flat against the back of this phone until it says the card is written.</p>
+  <p>The card will open <span id="dest"></span></p>
+  <button class="btn" type="button" id="write">Write a card</button>
+  <p id="status" role="status"></p>
+</section>
+
+<main class="ticket">
+  <header class="who">
+    <img src="emc-logo.png" alt="EMC Tickets" width="298" height="238">
+    <h1>Anthony<br>Quintana</h1>
+    <a class="btn" href="anthony-quintana.vcf">Save contact</a>
+  </header>
+  <nav class="ways" aria-label="Ways to reach Anthony">
+    <a href="tel:+18135732760"><b>Call</b><span>(813) 573-2760</span></a>
+    <a href="mailto:anthony@emctickets.com"><b>Email</b><span>anthony@emctickets.com</span></a>
+    <a href="https://calendly.com/anthony-emctickets/15min"><b>Book a time</b><span>15 minutes</span></a>
+    <a href="https://emctickets.com"><b>Website</b><span>emctickets.com</span></a>
+  </nav>
+</main>
+
+<script>
+if (new URLSearchParams(location.search).has('setup')) {
+  const $ = (id) => document.getElementById(id);
+  const say = (text) => { $('status').textContent = text; };
+  const url = location.origin + location.pathname; // wherever this page is published, that is what the card opens
+  const WHY = {
+    NotAllowedError: 'Chrome needs permission to use NFC. Press the button again and choose Allow.',
+    NotReadableError: 'NFC is switched off. Turn it on in the phone’s settings, then try again.',
+    NotSupportedError: 'This card cannot hold a link. Try another card.',
+    NetworkError: 'The card moved away too soon. Hold it still and try again.',
+  };
+  $('dest').textContent = url;
+  $('setup').hidden = false;
+  if (!('NDEFReader' in window)) {
+    $('write').disabled = true;
+    say('This browser cannot write cards. Open this page in Chrome on the Moto G.');
+  }
+  $('write').onclick = async () => {
+    $('write').disabled = true;
+    say('Hold a card against the back of the phone now.');
+    try {
+      await new NDEFReader().write({ records: [{ recordType: 'url', data: url }] });
+      say('Card written. Tap it on another phone to check it.');
+      $('write').textContent = 'Write another card';
+    } catch (e) {
+      say(WHY[e.name] || `That did not work (${e.message}). Try again.`);
+    }
+    $('write').disabled = false;
+  };
+}
+</script>
+</body>
+</html>
